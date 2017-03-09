@@ -45,15 +45,11 @@ class JsonapiController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 * Deletes the resource object or a list of resource objects
 	 *
 	 * @param string $resource Resource location, e.g. "product"
-	 * @param string $site Unique site code
-	 * @param integer $id Unique resource ID
 	 * @return string Response message content
 	 */
-	public function deleteAction( $resource, $site = 'default', $id = '' )
+	public function deleteAction( $resource )
 	{
-		$request = $this->request->getHttpRequest();
-
-		$client = $this->createClient( $site, $resource );
+		$client = $this->createClient( $resource );
 		$psrResponse = $client->delete( $this->getPsrRequest(), new Response() );
 
 		return $this->setPsrResponse( $psrResponse );
@@ -64,15 +60,11 @@ class JsonapiController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 * Returns the requested resource object or list of resource objects
 	 *
 	 * @param string $resource Resource location, e.g. "product"
-	 * @param string $site Unique site code
-	 * @param integer $id Unique resource ID
 	 * @return string Response message content
 	 */
-	public function getAction( $resource, $site = 'default', $id = '' )
+	public function getAction( $resource )
 	{
-		$request = $this->request->getHttpRequest();
-
-		$client = $this->createClient( $site, $resource );
+		$client = $this->createClient( $resource );
 		$psrResponse = $client->get( $this->getPsrRequest(), new Response() );
 
 		return $this->setPsrResponse( $psrResponse );
@@ -83,15 +75,11 @@ class JsonapiController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 * Updates a resource object or a list of resource objects
 	 *
 	 * @param string $resource Resource location, e.g. "product"
-	 * @param string $site Unique site code
-	 * @param integer $id Unique resource ID
 	 * @return string Response message content
 	 */
-	public function patchAction( $resource, $site = 'default', $id = '' )
+	public function patchAction( $resource )
 	{
-		$request = $this->request->getHttpRequest();
-
-		$client = $this->createClient( $site, $resource );
+		$client = $this->createClient( $resource );
 		$psrResponse = $client->patch( $this->getPsrRequest(), new Response() );
 
 		return $this->setPsrResponse( $psrResponse );
@@ -102,15 +90,11 @@ class JsonapiController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 * Creates a new resource object or a list of resource objects
 	 *
 	 * @param string $resource Resource location, e.g. "product"
-	 * @param string $site Unique site code
-	 * @param integer $id Unique ID of the resource
 	 * @return string Response message content
 	 */
-	public function postAction( $resource, $site = 'default', $id = '' )
+	public function postAction( $resource )
 	{
-		$request = $this->request->getHttpRequest();
-
-		$client = $this->createClient( $site, $resource );
+		$client = $this->createClient( $resource );
 		$psrResponse = $client->post( $this->getPsrRequest(), new Response() );
 
 		return $this->setPsrResponse( $psrResponse );
@@ -121,15 +105,11 @@ class JsonapiController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 * Creates or updates a single resource object
 	 *
 	 * @param string $resource Resource location, e.g. "product"
-	 * @param string $site Unique site code
-	 * @param integer $id Unique resource ID
 	 * @return string Response message content
 	 */
-	public function putAction( $resource, $site = 'default', $id = '' )
+	public function putAction( $resource )
 	{
-		$request = $this->request->getHttpRequest();
-
-		$client = $this->createClient( $site, $resource );
+		$client = $this->createClient( $resource );
 		$psrResponse = $client->put( $this->getPsrRequest(), new Response() );
 
 		return $this->setPsrResponse( $psrResponse );
@@ -140,14 +120,11 @@ class JsonapiController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 * Returns the available HTTP verbs and the resource URLs
 	 *
 	 * @param string $resource Resource location, e.g. "product"
-	 * @param string $site Unique site code
 	 * @return string Response message content
 	 */
-	public function optionsAction( $resource = '', $site = 'default' )
+	public function optionsAction( $resource = '' )
 	{
-		$request = $this->request->getHttpRequest();
-
-		$client = $this->createClient( $site, $resource );
+		$client = $this->createClient( $resource );
 		$psrResponse = $client->options( $this->getPsrRequest(), new Response() );
 
 		return $this->setPsrResponse( $psrResponse );
@@ -157,11 +134,10 @@ class JsonapiController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	/**
 	 * Returns the resource controller
 	 *
-	 * @param string $sitecode Unique site code
 	 * @param string Resource location, e.g. "product"
 	 * @return \Aimeos\Client\JsonApi\Iface JsonApi client
 	 */
-	protected function createClient( $sitecode, $resource )
+	protected function createClient( $resource )
 	{
 		$tmplPaths = $this->aimeos->get()->getCustomPaths( 'client/jsonapi/templates' );
 
