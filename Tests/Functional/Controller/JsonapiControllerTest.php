@@ -8,6 +8,7 @@ class JsonapiControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase
 	public function testOptionsAction()
 	{
 		$response = $this->browser->request( 'http://localhost/unittest/jsonapi', 'OPTIONS' );
+echo $response->getContent();
 		$json = json_decode( $response->getContent(), true );
 
 		$this->assertNotNull( $json );
@@ -21,6 +22,7 @@ class JsonapiControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase
 	{
 		$params = ['filter' => ['f_search' => 'Cafe Noire Cap', 'f_listtype' => 'unittype19']];
 		$response = $this->browser->request( 'http://localhost/unittest/jsonapi/product', 'GET', $params );
+echo $response->getContent();
 		$json = json_decode( $response->getContent(), true );
 
 		$this->assertNotNull( $json );
@@ -34,6 +36,7 @@ class JsonapiControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase
 
 
 		$response = $this->browser->request( 'http://localhost/unittest/jsonapi/product/' . $id, 'GET' );
+echo $response->getContent();
 		$json = json_decode( $response->getContent(), true );
 
 		$this->assertNotNull( $json );
